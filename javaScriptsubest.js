@@ -49,26 +49,26 @@
     // 使用let最简单的方式就是批量，替换程序中的var。通过var声明的变量在函数中都是可用的，
     // 而通过let声明的变量则只属于就近的花括号括起来的语句块（当然包括它嵌套的语句块）。
 
-    //     eg:
-    //         let x = 1, y = 2;
-    //         let (x=x+1,y=x+2){
-    //             console.log(x+y);   //输出5
-    //         };
-    //         console.log(x+y);   //输出3
+        eg:
+            let x = 1, y = 2;
+            let (x=x+1,y=x+2) 
+            console.log(x+y);   //输出5
+            
+            console.log(x+y);   //输出3
 
     // 1.3.解构赋值
     //     定义:等号右侧是一个数组或对象（一个结构化的值），指定左侧一个或多个变量的语法和右侧的数组和对象直接量的语法保持格式一致。
             
-    //         eg:
-    //             let [x,y] = [1,2];      //x=1,y=2
-    //             [x,y] = [x+1,y+1];      //x=x+1，y=y+1
-    //             [x,y] = [y,x];          //交换两个变量的值
-    //             console.log([x,y]);
+            eg:
+                let [x,y] = [1,2];      //x=1,y=2
+                [x,y] = [x+1,y+1];      //x=x+1，y=y+1
+                [x,y] = [y,x];          //交换两个变量的值
+                console.log([x,y]);
     //     结构赋值右侧不必和左侧一一对应，多余的变量赋值为undefined，而右侧多余的值会自动忽略。左侧变量可以用连续的逗号来跳过右侧的值
-    //         eg:
-    //             let [x,y] = [1];  //x=1
-    //             [,,x,y] = [1,2,3,4];   //x=3 ,y=4
-    //             [x,y] = [1,2,3]   //x=1,y=2
+            eg:
+                let [x,y] = [1];  //x=1
+                [,,x,y] = [1,2,3,4];   //x=3 ,y=4
+                [x,y] = [1,2,3]   //x=1,y=2
     //         整个解构运算返回右侧整个数据结构
     //         all = [x,y] = [1,2,3,4]   //all = [1,2,3,4] , x=1 , y=2
 
@@ -110,32 +110,32 @@
 
     //             迭代器必须包含next（）方法，每一次调用next()都返回集合的下一个值。
 
-    //             eg:
-    //                 function count(start){
-    //                     let nextValue = Math.round(start); //返回一个私有状态
-    //                     return {
-    //                         next:function(){return nextValue++;}  //返回迭代器对象
-    //                     };
-    //                 }
+                eg:
+                    function count(start){
+                        let nextValue = Math.round(start); //返回一个私有状态
+                        return {
+                            next:function(){return nextValue++;}  //返回迭代器对象
+                        };
+                    }
 
-    //                 let serialNumberGenerator = count(1000);
-    //                 let sn1 = serialNumberGenerator.next();   //1000
-    //                 let sn2 = serialNumberGenerator.next();   //1001
+                    let serialNumberGenerator = count(1000);
+                    let sn1 = serialNumberGenerator.next();   //1000
+                    let sn2 = serialNumberGenerator.next();   //1001
                 
     //             当迭代器用于有限的集合时，当遍历完所有的值并且没有多余的值可以进行迭代时，再调用next()会抛出StopIteration。 
     //             它的值是一个普通的对象，本身是没有属性的，只是为了终结迭代 的目的而保留的一个对象。
 
-    //             eg：对一个整数进行迭代，它可以迭代某个范围内的整数
+                eg://对一个整数进行迭代，它可以迭代某个范围内的整数
                     
-    //                 function rangIter(first,last){
-    //                     let nextValue = Math.ceil(first);
-    //                     return {
-    //                         next:function(){
-    //                             if(nextValue>last) throw StopIternation;
-    //                             return nextValue++;
-    //                         }
-    //                     };
-    //                 }
+                    function rangIter(first,last){
+                        let nextValue = Math.ceil(first);
+                        return {
+                            next:function(){
+                                if(nextValue>last) throw StopIternation;
+                                return nextValue++;
+                            }
+                        };
+                    }
 
     //                 //使用这个范围迭代器进行一次糟糕的迭代
     //                 let r = rangIter(1,5);
@@ -155,36 +155,36 @@
     //                 //javaScript 1.7对for/in循环功能进行扩展，可以用它来遍历可迭代对象。如果关键字in的右侧是一个可迭代对象，
     //                 //则for/in会自动调用_Iterator_（）方法获得一个迭代器对象。 for/in循环会自动处理StopIteration异常。
 
-    //                 eg: 定义一个range()函数，这个函数返回一个可迭代对象，用以表示这个范围的整数。
+                    eg: //定义一个range()函数，这个函数返回一个可迭代对象，用以表示这个范围的整数。
 
-    //                     function range(min,max){
-    //                         return{   //返回一个表示这个范围的对象  
-    //                             get min() { return min;},
-    //                             get max() { return max;},
-    //                             include(){
-    //                                 //判断x是否是在这个范围内
-    //                                 return x<=max&&x>=min;
-    //                             },
-    //                             toString(){
-    //                                 return "["+min+","+max+"]"
-    //                             },
-    //                             _iterator_:function(){
-    //                                 let val = Math.ceil(min);
-    //                                 return{
-    //                                     next:function(){
-    //                                         if(val>max) 
-    //                                             throw StopIternation;
-    //                                         return val++;
-    //                                     }
-    //                                 }
-    //                             }
+                        function range(min,max){
+                            return{   //返回一个表示这个范围的对象  
+                                get min() { return min;},
+                                get max() { return max;},
+                                include(){
+                                    //判断x是否是在这个范围内
+                                    return x<=max&&x>=min;
+                                },
+                                toString(){
+                                    return "["+min+","+max+"]"
+                                },
+                                _iterator_:function(){
+                                    let val = Math.ceil(min);
+                                    return{
+                                        next:function(){
+                                            if(val>max) 
+                                                throw StopIternation;
+                                            return val++;
+                                        }
+                                    }
+                                }
 
 
-    //                         }
+                            }
 
-    //                     }
+                        }
     //                     //这里我们对这个区间进行迭代
-    //                     for (let i in range(1,20)) console.log(i)   //输出1~20之间的数字
+                        for (let i in range(1,20)) console.log(i)   //输出1~20之间的数字
 
     //                     需要注意的是，尽管我们必须写一个_iterator_()的方法并抛出一个异常，但在正常使用的时候我们是不会去手动调用
     //                     _iterator_()方法和处理异常，通常for/in循环会为我们处理这些逻辑！
@@ -196,21 +196,113 @@
     //                     由于这个对象是可迭代的迭代器，因此它可以直接用于for/in循环，而不用调用next()方法，这意味着可以将Itertor（）函数和解构赋值一起使用！
     //                     这样可以更加方便的对对象或数组的属性和值进行遍历！
 
-    //                     eg：
-    //                         for(let [k,v] in Iterator({a:1,b:2}))
-    //                             console.log(k+"="+v)     //输出"a=1"和"b=2"
+                        eg:
+                            for(let [k,v] in Iterator({a:1,b:2}))
+                                console.log(k+"="+v)     //输出"a=1"和"b=2"
     //                     Iterator()函数有两个重要的特性，1.它只对自有属性进行遍历而忽略继承属性。2.如果给Iterator()函数传入第二个参数true，返回的迭代器
     //                     只对属性名进行遍历，而忽略属性的值。
 
-    //                     eg:
-    //                         o = {x:1,y:2};
-    //                         Object.prototype.z=3;   //所有对象都继承了z
-    //                         for(p in o){
-    //                             console.log(p);  //输出"x","y","z"
-    //                         }
-    //                         for(p in Iterator(o,true)){
-    //                             console.log(p)   //只输出"x"和"y"
-    //                         }
+                        eg:
+                            o = {x:1,y:2};
+                            Object.prototype.z=3;   //所有对象都继承了z
+                            for(p in o){
+                                console.log(p);  //输出"x","y","z"
+                            }
+                            for(p in Iterator(o,true)){
+                                console.log(p)   //只输出"x"和"y"
+                            }
+    // 1.4.3.生成器
+    //     生成器是javaScript1.7中的特性，这里使用一个新的关键字yield，当使用这个关键字的时候需要显式的指定版本号。
+    //     关键字yield和return的用法类似，它在函数内使用，返回函数的一个值。
+
+    //     yield和return的区别在于使用yield的函数"产生"一个可保持函数内部状态的值，这个值是可以恢复的。这种可恢复性使得yield成为编写
+    //     迭代器得有力工具
+
+    //     任何使用yield的函数都是生成器函数。生成器函数通过yield返回值。这些函数中可以使用return来终止函数的执行而不带任何返回值，但不能使用return
+    //     去返回一个值，
+
+    //     生成器是一个对象，用以表达生成器函数当前的执行状态
+
+
+        eg: 简单地使用生成器函数以及对它所生成的返回值的遍历
+            1.
+            //针对一个整数范围定义一个生成器函数
+            function range(min,max){
+                for(let i = Math.ceil(min) ;i < max ;i++) yield i;
+            }
+
+            //调用这个生成器函数以获得一个生成器对象，并对他进行遍历
+            for(let n in range(3,8)) console.log(n);   //输出3~8
+
+            2.
+            //生成器函数不需要返回。实际上，最经典的案例是用生成器生成非布拉奇树（fibonacci数列）
+
+            function fabonacci() {
+                let x = 0,y = 1;
+                while(true){
+                    yield y;
+                    [x,y] = [y,x+y];
+                }
+            }
+
+            //调用生成器函数获得一个生成器
+            f=fibonacci();
+            //将生成器当作迭代器，输出fibonacci数列的前十个数
+            for(let i = 0;i<10;i++) console.log(f.next());
+            
+    //         fibonacci()生成器函数没有返回值，所以不能把他当作一个可迭代对象用for/in循环去遍历它。因此，它产生的生成器不会抛出StopIterator()，因此会出现
+    //         无限循环。我们需要显示的调用next()方法来实现。运行上面代码2，生成器f依然保持着生成器函数的执行状态。
+    //         如果不再使用f,则可以通过调用f.close()方法来释放它
+
+    //         当执行f.close()方法之后,和他相关的生成器函数就会终止执行，就像在函数运行挂起的位置执行一条return语句。
+
+
+    //         生成器经常用来处理序列化的数据，比如元素列表，多行文字，词法分析器中的单词等。生成器可以像Unix的shell命令中的管道那样链式使用。
+    //         这种用法中的生成器是懒惰的，只有在需要的时候才会从生成器中取值，而不是一次将许多结果都计算出来。
+
+            eg: //1.一个生成器管道
+
+                function eachline(s){
+                    let p;
+                    while((p = s.indexOf('\n')) != -1){
+                        yield s.substring(o,p);
+                        s = s.substring(p+1);
+                    }
+                    if(s.length > 0) yield s;
+                }
+                
+            //一个生成器函数，对于每个可迭代的i的每个元素x，都会产生一个f(x) 
+            function map(i ,f) {
+                for(let x in i) yield f(x);
+            }
+
+            //一个生成器函数针对每个结果为true的f(x),为i生成一个元素
+            function select(i,f){
+                for(let x in i){
+                    if(f(x)) yield x;
+                }
+            }
+
+            //准备处理这个字符串
+            let text = "#comment \n \n hello \nworld\n quit \n unreached \n";
+
+
+            //现在创建一个生成器管道来处理它
+            //首先，将文本分隔成行
+            let lines = eachline(text);
+            //然后，去掉行首和行尾的空格
+            let trimmed = map(lines,function(line){return line.trim();});
+            //最后，忽略空行和注释
+            let noblank = select(trimmed,function(line) {
+                return line.length>0 && line[0] != "#"
+            });
+
+            //现在从管道中取出经过删减和筛选后的行对其进行处理
+            //直到遇到”quit“的行
+            for(let line in noblank){
+                if(line === "quit") break;
+                console.log(line);
+            }
 
 
 
