@@ -142,6 +142,51 @@
 //                             如果<script>标签同时有这两个值，那么浏览器会执行async忽略defer。
 //                             注意延迟脚本会按照他们在文档中的出现顺序执行，而异步脚本在他们加载后执行，这意味着他可能会时无序的执行
 
+        // 1.3.2.事件驱动的javaScript
+        //     setTimeout()和setInterval()函数（这些都是windows对象的方法，因此他们都是客户端的JavaScript的全局对象）会在一段事件之后触发指定函数的调用。
+        //     传递给setTimeout()的函数和真实事件处理程序的注册不同，他们通常叫做"回调函数",而不是处理程序，但是他们和处理程序是一样的，也是异步。
+
+
+        //     eg: //onLoad()，当文档加载完成后调用一个函数
+        //     function onLoad(f){
+        //         if(onLoad.load)                     //如果文档载入完成
+        //             windows.setTimeout(f,0);        //则将f放入异步队列，并尽快执行
+        //         else if(window.addEventListener)    //注册事件的标准方法
+        //             windows.addEventListener("load",f,false);
+        //         else if(window.attachEvent)         //IE以及更早的IE版本浏览器注册事件的方法
+        //             window.attachEvent("load",f);
+        //     }
+        //     //给onLoad设置一个标签，用来表示文档是否加载完成
+        //     onLoad.load = false;
+        //     //注册一个函数当文档载入完成时设置这个标签
+        //     onLoad(function (){onLoad.load = true;});
+        
+        // 1.3.4.客户端javaScript时间线
+        //     1.web浏览器创建document对象，并且开始解析web页面，解析HTML元素和它们的文本内容后添加ELement对象和Text节点到文档中。
+        //     在这个阶段document的readystate属性值是"loading"
+
+        //     2.当html解析器遇到没有async和defer属性的<script>元素时，它把这些元素添加到文档中，然后执行行内和外部脚本。这些脚本会同步执行，并且在
+        //     脚本下载和执行时解释器也会暂停。这样的脚本可以使用document.write()来把文本插入到输入流中，当解释器恢复时这些文本会成为解释器的一部分。
+
+        //     3.当解释器遇到有async和defer的<script>元素时，它开始下载脚本文本，并继续解析文本，脚本会在它下载好后快速的执行，但解析器不会停下来。
+        //     异步脚本禁止使用documen.write()方法。
+
+        //     4.当文档解析完成后，document.readystate 属性变为"interactive"。
+
+        //     5.所有defer属性的脚本，他会按照文档里的出现顺序执行。而异步脚本可能也会在这个时候执行。延迟脚本能访问完整的文档树，禁止使用document.write()方法
+
+        //     6.浏览器在Document对象上触发DOMContentLoaded事件。这标志着程序执行从同步脚本执行阶段转换到异步脚本驱动阶段。但要注意这里可能任然有异步脚本没有执行
+        //     完成。
+
+        //     7.这时文档已经全部解析完成，但浏览器可能任然在等待资源，如加载图片等。并且所有的异步脚本完成执行和载入，Document.readystate的属性变为 "complet",
+        //     Web浏览器触发window.load()事件
+
+        //     8.从此刻开始，调用异步事件，以异步响应用户输入事件，网络事件，计时器过期等。
+
+
+
+
+
 
                 
                 
