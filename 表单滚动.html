@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <style type="text/css">
+        .content {
+            width: 500px;
+            margin: 50px 600px;
+        }
+ 
+        .header {
+            line-height: 50px;
+            background-color: #ECECEC;
+        }
+ 
+        .data {
+            height: 300px;
+            overflow: hidden;
+        }
+    </style>    
+</head>
+
+<body>
+    <div class="content">
+        <div class="header row">
+            <div class="col-md-3">姓名</div>
+            <div class="col-md-3">性别</div>
+            <div class="col-md-3">年龄</div>
+            <div class="col-md-3">职业</div>
+        </div>
+        <div class="data">
+            <div class="data-content">
+                <table class="table table-hover">
+                </table>
+            </div>
+            <div class="data-footer"></div>
+        </div>
+    </div>
+    <script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+   
+    <script type="text/javascript">
+        var html="";
+        for (var i = 0; i < 20; i++) {
+            html += '<tr>';
+            html += '<td>张三'+ i +'</td>';
+            if(i%2==0){
+                html +='<td>男</td>';
+            }else{
+                html +="<td>女</td>";
+            }
+            html += '<td>' + 10 + i +'</td>';
+            html += '<td>程序员</td>';
+            html += '</tr>';
+        }
+        $('.table').html(html);
+        $('td').addClass('col-md-3');
+    
+        var DOMdata = $('.data')[0];
+        var DOMdataContent = $('.data-content')[0];
+        var DOMdatafoot = $('.data-footer')[0];
+        var height = DOMdata.offsetTop + DOMdata.offsetHeight;   //容器的高度
+        /*offsetTop是距离上层控件的距离*/
+        setInterval(function(){
+            if(DOMdatafoot.offsetTop - DOMdata.scrollTop -  height <=0){
+                DOMdata.scrollTop -= DOMdataContent.offsetHeight;
+            }else{
+                DOMdata.scrollTop++;
+            }
+        }, 20);
+    
+    </script>
+</body>
+
+
+
+</html>

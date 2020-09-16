@@ -23,7 +23,8 @@
 //                         setTimeout(repate,timeout);
 //                         function repate(){
 //                             var h = setInterval(f,interval);
-//                             if(end) setTimeout(function (){clearInterval(h);});
+//                             if(end) setTimeout(function (){clearInterval(h);},end);
 //                         }
 //                     }
 //                 }
+
